@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Thread name:</strong>
+  <%= @game_thread.thread_name %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @game_thread.genre %>
+</p>
+
+<%= link_to 'Edit', edit_game_thread_path(@game_thread) %> |
+<%= link_to 'Back', game_threads_path %>

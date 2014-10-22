@@ -1,0 +1,27 @@
+<h1>Listing game_threads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thread name</th>
+      <th>Genre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @game_threads.each do |game_thread| %>
+      <tr>
+        <td><%= game_thread.thread_name %></td>
+        <td><%= game_thread.genre %></td>
+        <td><%= link_to 'Show', game_thread %></td>
+        <td><%= link_to 'Edit', edit_game_thread_path(game_thread) %></td>
+        <td><%= link_to 'Destroy', game_thread, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Game thread', new_game_thread_path %>

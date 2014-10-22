@@ -1,0 +1,25 @@
+<%= form_for(@game_thread) do |f| %>
+  <% if @game_thread.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game_thread.errors.count, "error") %> prohibited this game_thread from being saved:</h2>
+
+      <ul>
+      <% @game_thread.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :thread_name %><br>
+    <%= f.text_field :thread_name %>
+  </div>
+  <div class="field">
+    <%= f.label :genre %><br>
+    <%= f.text_field :genre %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
