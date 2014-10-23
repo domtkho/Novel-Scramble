@@ -1,33 +1,32 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Thread name:</strong>
-  <%= @game_thread.thread_name %>
-</p>
-
-<p>
-  <strong>Genre:</strong>
-  <%= @game_thread.genre %>
-</p>
+<header>
+  <h1><strong><%= @game_thread.thread_name %></strong></h1>
+  <h2><%= @game_thread.genre %></h2>
+</header>
 
 <% @scripts.each do |script| %>
-  <p><%= link_to script.content, script %></p>
-  <p><%= script.created_at %></p>
-<% end %>
-
-<%= form_for(@script) do |f| %>
-  <div class="field">
-    <%= f.label :content, "Add New Script:" %><br>
-    <%= f.text_field :content %>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="script">
+    <p><%= script.content %></p>
+    <span><%= link_to 'Edit', edit_script_path %></span>
+    <span class="time-stamp pull-right"><%= script.created_at %></span>
   </div>
 <% end %>
 
+<div class="add-script">
+  <%= form_for(@script) do |f| %>
+    <div class="field">
+      <%= f.label :content, "Add New Script:" %><br>
+      <%= f.text_area :content %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to 'Edit', edit_game_thread_path(@game_thread) %> |
-<%= link_to 'Back', game_threads_path %>
+
+<%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary"} %>
+

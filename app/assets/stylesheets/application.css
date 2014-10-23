@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+
+/* Fonts
+-------------------------------------------------- */
+
+@font-face {
+  font-family: "Raleway";
+  src: url("//fonts.googleapis.com/css?family=Raleway");
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  color: #5d5d5d;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #1F2426;
+  color: #FFFFFF;
+  padding-top: 20px;
+  text-align: center;
+}

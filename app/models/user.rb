@@ -1,3 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :scripts :threads
+  has_many :scripts
+  has_many :threads
 end
