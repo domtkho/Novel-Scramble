@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
 
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
   #   end
   resources :scripts
   resources :game_threads
+  devise_for :users
 
   # Example resource route with more complex sub-resources:
   #   resources :products do
