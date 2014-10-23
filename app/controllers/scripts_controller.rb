@@ -10,6 +10,7 @@ class ScriptsController < ApplicationController
   # GET /scripts/1
   # GET /scripts/1.json
   def show
+    @game_thread = GameThread.all
   end
 
   # GET /scripts/new
@@ -28,7 +29,7 @@ class ScriptsController < ApplicationController
 
     respond_to do |format|
       if @script.save
-        format.html { redirect_to @script, notice: 'Script was successfully created.' }
+        format.html { redirect_to :back, notice: 'Script was successfully created.' }
         format.json { render :show, status: :created, location: @script }
       else
         format.html { render :new }

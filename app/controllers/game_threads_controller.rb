@@ -10,6 +10,8 @@ class GameThreadsController < ApplicationController
   # GET /game_threads/1
   # GET /game_threads/1.json
   def show
+    @script = Script.new
+    @scripts = Script.where(game_thread_id: @game_thread.id)
   end
 
   # GET /game_threads/new

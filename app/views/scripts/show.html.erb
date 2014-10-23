@@ -7,8 +7,8 @@
 
 <p>
   <strong>Game Thread:</strong>
-  <%= @script.game_thread_id %>
+  <%= @game_thread.find(@script.game_thread_id).thread_name %>
 </p>
 
 <%= link_to 'Edit', edit_script_path(@script) %> |
-<%= link_to 'Back', scripts_path %>
+<%= link_to 'Back', :back %>

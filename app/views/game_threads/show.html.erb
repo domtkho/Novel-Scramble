@@ -10,5 +10,24 @@
   <%= @game_thread.genre %>
 </p>
 
+<% @scripts.each do |script| %>
+  <p><%= link_to script.content, script %></p>
+  <p><%= script.created_at %></p>
+<% end %>
+
+<%= form_for(@script) do |f| %>
+  <div class="field">
+    <%= f.label :content, "Add New Script:" %><br>
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
 <%= link_to 'Edit', edit_game_thread_path(@game_thread) %> |
 <%= link_to 'Back', game_threads_path %>
