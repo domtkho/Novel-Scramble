@@ -8,6 +8,7 @@
   <div class="script">
     <p><%= script.content %></p>
     <span><%= link_to 'Edit', edit_script_path %></span>
+    <span><%= "Created by: #{script.user.first_name}" %></span>
     <span class="time-stamp pull-right"><%= script.created_at %></span>
   </div>
 <% end %>
@@ -20,6 +21,9 @@
     </div>
     <div class="field">
       <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :user_id, {:value => current_user.id} %>
     </div>
     <div class="actions">
       <%= f.submit %>

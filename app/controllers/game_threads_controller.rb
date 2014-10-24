@@ -71,6 +71,6 @@ class GameThreadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_thread_params
-      params.require(:game_thread).permit(:thread_name, :genre)
+      params.require(:game_thread).permit(:thread_name, :genre, :user_id)
     end
 end

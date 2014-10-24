@@ -34,7 +34,8 @@ Rails.application.routes.draw do
   #   end
   resources :scripts
   resources :game_threads
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
+
 
   # Example resource route with more complex sub-resources:
   #   resources :products do

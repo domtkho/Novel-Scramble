@@ -14,6 +14,12 @@
  *= require_self
  */
 
+.edit-user-column {
+  min-width: 330px;
+}
+
+
+
 /* Fonts
 -------------------------------------------------- */
 
