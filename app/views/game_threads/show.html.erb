@@ -11,8 +11,10 @@
     </div>
     <div class="script col-md-11">
       <p><%= script.content %></p>
-      <span><%= link_to 'Edit', edit_script_path %></span>
       <span>Created by: <%= link_to script.user.first_name, "/users/#{script.user.id}" %></span>
+      <% if user_signed_in? && current_user.id == script.user_id %>
+        <span>| <%= link_to 'Edit script', edit_script_path %></span>
+      <% end %>
       <span class="time-stamp pull-right"><%= script.created_at %></span>
     </div>
   </div>

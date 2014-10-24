@@ -25,14 +25,13 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'devise'
 
-gem 'spring'
 gem 'carrierwave'
+gem 'faker'
 
 group :development do
   # Spring speeds up development by keeping your application running in the background.
   #> https://github.com/rails/spring
   gem 'spring'
-  gem 'carrierwave'
 
   # Better Errors replaces the standard Rails error page with a much better and more useful error page.
   #> https://github.com/charliesome/better_errors
