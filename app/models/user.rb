@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :game_threads
   has_many :scripts
+
+  mount_uploader :avatar, AvatarUploader
+
 end

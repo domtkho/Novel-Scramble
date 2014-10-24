@@ -34,7 +34,11 @@ Rails.application.routes.draw do
   #   end
   resources :scripts
   resources :game_threads
+
   devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_scope :user do
+    get '/users/:id' => 'registrations#profile'
+  end
 
 
   # Example resource route with more complex sub-resources:
