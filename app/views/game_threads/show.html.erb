@@ -18,24 +18,27 @@
   </div>
 <% end %>
 
-<div class="add-script">
-  <%= form_for(@script) do |f| %>
-    <div class="field">
-      <%= f.label :content, "Add New Script:" %><br>
-      <%= f.text_area :content %>
-    </div>
-    <div class="field">
-      <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
-    </div>
-    <div class="field">
-      <%= f.hidden_field :user_id, {:value => current_user.id} %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <% end %>
-</div>
-
+<% if user_signed_in? %>
+  <div class="add-script">
+    <%= form_for(@script) do |f| %>
+      <div class="field">
+        <%= f.label :content, "Add New Script:" %><br>
+        <%= f.text_area :content %>
+      </div>
+      <div class="field">
+        <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+      </div>
+      <div class="field">
+        <%= f.hidden_field :user_id, {:value => current_user.id} %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>Sign in to post scripts!</p>
+<% end %>
 
 <%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary"} %>
 

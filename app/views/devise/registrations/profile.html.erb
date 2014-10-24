@@ -2,4 +2,8 @@
 <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
 <%= "User since: #{@user.created_at}" %>
 
-<h2>Recent Scripts:</h2>
+<h2>Recent Activities</h2>
+<% @user.scripts.each do |script| %>
+  <p>Posted a script in <%= link_to script.game_thread.thread_name, script.game_thread %></p>
+  <p><%= "#{distance_of_time_in_words_to_now(script.created_at)} ago" %></p>
+<% end %>
