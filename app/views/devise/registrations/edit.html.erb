@@ -12,17 +12,17 @@
       <h2>Edit <%= resource_name.to_s.humanize %></h2>
       <%= devise_error_messages! %>
 
-      <div class="user-info-entry"><%= f.label :username %><br />
-      <%= f.text_field :username, autofocus: true, class: 'form-control', readonly: false %></div>
-
       <div class="user-info-entry"><%= f.label :first_name %><br />
       <%= f.text_field :first_name, autofocus: true, class: 'form-control' %></div>
 
       <div class="user-info-entry"><%= f.label :last_name %><br />
       <%= f.text_field :last_name, autofocus: true, class: 'form-control' %></div>
 
+      <div class="user-info-entry"><%= f.label :username %><br />
+      <%= f.text_field :username, autofocus: true, class: 'form-control', readonly: true %></div>
+
       <div class="user-info-entry"><%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, class: 'form-control' %></div>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', readonly: true %></div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

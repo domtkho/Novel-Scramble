@@ -19,17 +19,14 @@
 -------------------------------------------------- */
 
 @font-face {
-  font-family: "Raleway";
-  src: url("//fonts.googleapis.com/css?family=Raleway");
-}
-@font-face {
   font-family: "Arimo";
-  src: url("//fonts.googleapis.com/css?family=Raleway");
+  src: url("Arimo.ttf") format('truetype');
 }
+
 
 @font-face {
   font-family: "Julius";
-  src: url("//fonts.googleapis.com/css?family=Julius+Sans+One");
+  src: url("JuliusSansOne.ttf") format('truetype');
 }
 
 
@@ -49,6 +46,14 @@ div.big-avatar-container {
   text-align: center;
   margin: 20px 0 10px;
 }
+
+img.navbar-avatar-thumbnail {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #E2E2E2;
+  border-radius: 3px;
+}
+
 
 img.avatar {
   width: 200px;

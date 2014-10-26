@@ -5,8 +5,8 @@
 
 main header {
 
-    h1, h2 {
-    font-family: "";
+  h1, h2 {
+    font-family: "Julius";
   }
 
   h1 {
@@ -19,3 +19,26 @@ main header {
     font-size: 28px;
   }
 }
+
+div.section-header {
+
+  h3 {
+    color: #FFFFFF;
+    background-color: #009ACE;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 0;
+    padding: 10px 15px 10px 15px;
+  }
+}
+
+/* Writers Summary
+-------------------------------------------------- */
+
+div.writer-summary {
+  background-color: #F2F2F2;
+  border-radius: 6px;
+  padding: 0 5px;
+}
+
