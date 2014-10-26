@@ -1,42 +1,47 @@
 <div class="container">
 
-  <div class="col-md-4 avatar-container">
-    <%= image_tag((current_user.avatar), :class => "avatar") %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {method: :put, :multipart => true }) do |f| %>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "edit-user-column col-md-4", method: :put, :multipart => true }) do |f| %>
-    <h2>Edit <%= resource_name.to_s.humanize %></h2>
-    <%= devise_error_messages! %>
+    <div class="col-md-3 big-avatar-container">
+      <%= image_tag((current_user.avatar), :class => "avatar") %>
+      <div><%= f.file_field :avatar %></div>
+    </div>
 
-    <div><%= f.label :avatar %><br>
-    <%= f.file_field :avatar %></div>
+    <div class="edit-user-column col-md-4">
 
-    <div><%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, class: 'form-control' %></div>
+      <h2>Edit <%= resource_name.to_s.humanize %></h2>
+      <%= devise_error_messages! %>
 
-    <div><%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true, class: 'form-control' %></div>
+      <div class="user-info-entry"><%= f.label :username %><br />
+      <%= f.text_field :username, autofocus: true, class: 'form-control', readonly: false %></div>
 
-    <div><%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, class: 'form-control' %></div>
+      <div class="user-info-entry"><%= f.label :first_name %><br />
+      <%= f.text_field :first_name, autofocus: true, class: 'form-control' %></div>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
+      <div class="user-info-entry"><%= f.label :last_name %><br />
+      <%= f.text_field :last_name, autofocus: true, class: 'form-control' %></div>
 
-    <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "off", class: 'form-control' %></div>
+      <div class="user-info-entry"><%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, class: 'form-control' %></div>
 
-    <div><%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %></div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
 
-    <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %></div>
+      <div class="user-info-entry"><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %></div>
 
-    <div><%= f.submit "Update", class: 'btn btn-success btn-block' %></div>
+      <div class="user-info-entry"><%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %></div>
+
+      <div class="user-info-entry"><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %></div>
+
+      <div><%= f.submit "Update", class: 'btn btn-success btn-block' %></div>
+
+    </div>
 
   <% end %>
-
   <div class="edit-user-column col-md-4">
     <h2>Cancel my account</h2>
 

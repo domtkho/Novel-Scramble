@@ -2,21 +2,84 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+div.section-header {
 
+  h3 {
+    color: #FFFFFF;
+    background-color: #009ACE;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    font-size: 18px;
+    margin: 0 -15px;
+    padding: 15px 0 15px 15px;
+
+  }
+
+}
+
+/* Writers Summary
+-------------------------------------------------- */
+
+div.writer-summary {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+}
+
+
+
+/* Scripts
+-------------------------------------------------- */
+
+div.scripts-container {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+div.script-container {
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+  margin-bottom: -1px;
+  padding: 10px 15px;
+}
+
+div.avatar-container {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin-right: 15px;
+}
+
+img.avatar-thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 5px;
+}
 
 div.script {
-  border: 2px solid #5d5d5d;
-  border-radius: 5px;
-  margin: 0 0 20px;
-  padding: 20px;
 
-  p {
-    font-size: 18px;
-  }
+  margin-left: -15px;
+  padding: 0 0 0 15px;
 
-  p.time-stamp {
+  span.fullname {
     font-size: 14px;
   }
+
+  span.username,
+  span.time-stamp {
+    font-size: 13px;
+    color: #a5a5a5;
+  }
+
+  span.edit {
+    font-size: 13px;
+    margin-left: 5px;
+  }
+
+  p.content {
+    font-size: 14px;
+  }
+
 }
 
 .add-script {

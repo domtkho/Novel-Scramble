@@ -14,27 +14,6 @@
  *= require_self
  */
 
-.edit-user-column {
-  min-width: 330px;
-}
-
-div.avatar-container {
-  text-align: center;
-}
-
-img.avatar {
-  width: 200px;
-  height: 200px;
-  border: 10px solid #e7e7e7;
-  border-radius: 10px;
-  margin: 0 auto;
-}
-
-img.avatar-thumbnail {
-  width: 80px;
-  height: 80px;
-}
-
 
 /* Fonts
 -------------------------------------------------- */
@@ -43,6 +22,51 @@ img.avatar-thumbnail {
   font-family: "Raleway";
   src: url("//fonts.googleapis.com/css?family=Raleway");
 }
+@font-face {
+  font-family: "Arimo";
+  src: url("//fonts.googleapis.com/css?family=Raleway");
+}
+
+@font-face {
+  font-family: "Julius";
+  src: url("//fonts.googleapis.com/css?family=Julius+Sans+One");
+}
+
+
+
+/* Others
+-------------------------------------------------- */
+
+div.user-info-entry {
+  margin-bottom: 10px;
+}
+
+.edit-user-column {
+  min-width: 330px;
+}
+
+div.big-avatar-container {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+
+img.avatar {
+  width: 200px;
+  height: 200px;
+  border: 5px solid #FFFFFF;
+  border-radius: 12px;
+  margin: 0 auto;
+}
+
+h1.fullname {
+  font-size: 22px;
+}
+
+h2.username {
+  font-size: 14px;
+}
+
+
 
 
 /* Sticky footer styles
@@ -55,6 +79,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   color: #5d5d5d;
+  background-color: #F2F2F2;
 }
 .footer {
   position: absolute;

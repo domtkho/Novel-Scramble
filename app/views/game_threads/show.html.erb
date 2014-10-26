@@ -4,43 +4,56 @@
   <h2><%= @game_thread.genre %></h2>
 </header>
 
-<% @scripts.each do |script| %>
-  <div class="row">
-    <div class="col-md-1">
-      <%= image_tag((script.user.avatar), :class => "avatar-thumbnail") %>
+
+<div class="conatainer writer-summary col-md-3">
+  <div class="section-header">
+    <h3 class="section-header">Current Writers</h3>
+  </div>
+</div>
+
+
+<div class="container scripts-container col-md-6">
+  <div class="section-header">
+    <h3>Scripts</h3>
+  </div>
+  <% @scripts.each do |script| %>
+    <div class="row script-container">
+      <div class="col-md-1 avatar-container">
+        <%= image_tag((script.user.avatar), :class => "avatar-thumbnail") %>
+      </div>
+      <div class="script col-md-10">
+        <span class="fullname"><strong><%= link_to "#{script.user.first_name} #{script.user.last_name}", "/users/#{script.user.id}" %></strong></span>
+        <span class="username"><%= "@#{script.user.username} - " %></span>
+        <span class="time-stamp"><%= distance_of_time_in_words_to_now(script.created_at) %></span>
+        <% if user_signed_in? && current_user.id == script.user_id %>
+          <span class="edit"><%= link_to 'Edit', edit_script_path %></span>
+        <% end %>
+        <p class="content"><%= script.content %></p>
+      </div>
     </div>
-    <div class="script col-md-11">
-      <p><%= script.content %></p>
-      <span>Created by: <%= link_to script.user.first_name, "/users/#{script.user.id}" %></span>
-      <% if user_signed_in? && current_user.id == script.user_id %>
-        <span>| <%= link_to 'Edit script', edit_script_path %></span>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <div class="add-script">
+      <%= form_for(@script) do |f| %>
+        <div class="field">
+          <%= f.label :content, "Add New Script:" %><br>
+          <%= f.text_area :content %>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :user_id, {:value => current_user.id} %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
       <% end %>
-      <span class="time-stamp pull-right"><%= script.created_at %></span>
     </div>
-  </div>
-<% end %>
+  <% else %>
+    <p>Sign in to post scripts!</p>
+  <% end %>
 
-<% if user_signed_in? %>
-  <div class="add-script">
-    <%= form_for(@script) do |f| %>
-      <div class="field">
-        <%= f.label :content, "Add New Script:" %><br>
-        <%= f.text_area :content %>
-      </div>
-      <div class="field">
-        <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
-      </div>
-      <div class="field">
-        <%= f.hidden_field :user_id, {:value => current_user.id} %>
-      </div>
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <p>Sign in to post scripts!</p>
-<% end %>
-
-<%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary"} %>
-
+  <%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary"} %>
+</div>

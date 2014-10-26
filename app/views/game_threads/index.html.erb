@@ -22,7 +22,7 @@
         <tr>
           <td><%= link_to game_thread.thread_name, game_thread %></td>
           <td><%= game_thread.genre %></td>
-          <td><%= game_thread.created_at %></td>
+          <td><%= game_thread.created_at.strftime "%I:%M%P - %d %b %Y" %></td>
           <td><%= game_thread.scripts.count %></td>
           <td><%= link_to "Join Now", game_thread, {class: 'btn btn-success'} %></td>
         </tr>
@@ -31,5 +31,5 @@
   </table>
 </div>
 
-<% url = user_signed_in? ? new_game_thread_path : new_user_registration_path %>
+<% url = user_signed_in? ? new_game_thread_path : new_user_session_path %>
 <%= link_to 'Create New Game', url, {class: "btn btn-primary"} %>

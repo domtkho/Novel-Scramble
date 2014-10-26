@@ -1,7 +1,8 @@
 <div class="col-md-3">
   <%= image_tag((@user.avatar), :class => 'avatar') %>
-  <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-  <%= "User since: #{@user.created_at}" %>
+  <strong><h1 class="fullname"><%= "#{@user.first_name} #{@user.last_name}" %></h1></strong>
+  <h2 class="username"><%= "@#{@user.username}" %></h2>
+
 </div>
 
 <div class="col-md-9">

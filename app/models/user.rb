@@ -8,4 +8,9 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  validates :username,
+  :uniqueness => {
+    :case_sensitive => false
+  }
+
 end
