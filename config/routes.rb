@@ -32,7 +32,10 @@ Rails.application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
-  resources :scripts
+  resources :scripts do
+    patch 'upvote' => 'scripts#upvote'
+  end
+
   resources :game_threads do
     patch 'add_writer' => 'game_threads#add_writer'
     patch 'remove_writer' => 'game_threads#remove_writer'

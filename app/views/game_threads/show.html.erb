@@ -47,7 +47,7 @@
         <%= image_tag((script.user.avatar), :class => "avatar-thumbnail") %>
       </div>
 
-      <div class="script col-md-10">
+      <div class="script col-md-9">
         <span class="fullname"><strong><%= link_to "#{script.user.first_name} #{script.user.last_name}", "/users/#{script.user.id}" %></strong></span>
         <span class="username"><%= "@#{script.user.username} - " %></span>
         <span class="time-stamp"><%= distance_of_time_in_words_to_now(script.created_at) %></span>
@@ -57,10 +57,19 @@
         <p class="content"><%= script.content %></p>
       </div>
 
+      <div class="col-md-1">
+        <%= form_for script, url: {controller: 'scripts', action: 'upvote', script_id: script.id} do |f| %>
+          <div class="actions">
+            <%= f.submit "Vote", :class => "btn btn-primary" %>
+          </div>
+        <% end %>
+        <div class="number-of-votes"><%= script.votes_for.size%></div>
+      </div>
+
     </div>
   <% end %>
 
-  <% if user_signed_in? %>
+  <% if user_signed_in? && @game_thread.users.include?(current_user) %>
     <div class="add-script">
       <%= form_for(@script) do |f| %>
         <div class="field">
@@ -78,8 +87,6 @@
         </div>
       <% end %>
     </div>
-  <% else %>
-    <p>Sign in to post scripts!</p>
   <% end %>
 
   <%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary"} %>

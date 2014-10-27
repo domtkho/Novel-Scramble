@@ -22,6 +22,24 @@ class ScriptsController < ApplicationController
   def edit
   end
 
+  def upvote
+    @script = Script.find(params[:script_id])
+
+    respond_to do |format|
+      if !user_signed_in?
+        format.html { redirect_to new_user_session_path }
+      elsif current_user.voted_for? @script
+        format.html { redirect_to :back, notice: 'You cannot vote on the same script for more than once!' }
+        format.json { render :show, status: :created, location: @script }
+      else
+        @script.liked_by current_user
+        @script.save
+        format.html { redirect_to :back, notice: 'Successfully upvoted!' }
+        format.json { render :show, status: :created, location: @script }
+      end
+    end
+  end
+
   # POST /scripts
   # POST /scripts.json
   def create
