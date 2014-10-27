@@ -33,12 +33,16 @@ Rails.application.routes.draw do
   #     resource :seller
   #   end
   resources :scripts
-  resources :game_threads
+  resources :game_threads do
+    patch 'add_writer' => 'game_threads#add_writer'
+    patch 'remove_writer' => 'game_threads#remove_writer'
+  end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   devise_scope :user do
     get '/users/:id' => 'registrations#profile'
   end
+
 
 
   # Example resource route with more complex sub-resources:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026123037) do
+ActiveRecord::Schema.define(version: 20141027043421) do
 
   create_table "game_threads", force: true do |t|
     t.string   "thread_name"
@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 20141026123037) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "game_threads_users", id: false, force: true do |t|
+    t.integer "user_id",        null: false
+    t.integer "game_thread_id", null: false
   end
 
   create_table "scripts", force: true do |t|

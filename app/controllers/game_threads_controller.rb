@@ -23,6 +23,39 @@ class GameThreadsController < ApplicationController
   def edit
   end
 
+  def add_writer
+    @game_thread = GameThread.find(params[:game_thread_id])
+    if !(@game_thread.users.include? current_user)
+      @game_thread.users.push current_user
+    end
+
+    respond_to do |format|
+      if @game_thread.save
+        format.html { redirect_to :back, notice: 'You have joined as a writer!' }
+        format.json { render :show, status: :created, location: @game_thread }
+      else
+        format.html { render :new }
+        format.json { render json: @game_thread.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remove_writer
+    @game_thread = GameThread.find(params[:game_thread_id])
+    @game_thread.users.delete current_user
+
+    respond_to do |format|
+      if @game_thread.save
+        format.html { redirect_to :back, notice: 'You have left the game as a writer' }
+        format.json { render :show, status: :created, location: @game_thread }
+      else
+        format.html { render :new }
+        format.json { render json: @game_thread.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   # POST /game_threads
   # POST /game_threads.json
   def create
@@ -62,6 +95,9 @@ class GameThreadsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -13,9 +13,9 @@
 
   <div class="field">
     <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, {:class => "form-control", :rows => "8"} %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Update script', {:class => "btn btn-success"} %>
   </div>
 <% end %>

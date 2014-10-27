@@ -9,6 +9,30 @@
   <div class="section-header">
     <h3 class="section-header">Writers</h3>
   </div>
+
+  <% @game_thread.users.each do |user| %>
+    <div class="writer-container">
+      <%= image_tag((user.avatar), :class => "avatar-thumbnail") %>
+      <span class="fullname"><strong><%= link_to "#{user.first_name} #{user.last_name}", "/users/#{user.id}" %></strong></span>
+      <% if user_signed_in? && current_user.id == user.id %>
+        <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'remove_writer', game_thread_id: @game_thread.id}, :html => {:class => "leave-room-btn"}) do |f| %>
+          <div class="actions">
+            <%= f.submit "Leave", :class => "btn btn-warning" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% (8 - @game_thread.users.count).times do %>
+    <div class="writer-container">
+      <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'add_writer', game_thread_id: @game_thread.id}) do |f| %>
+        <div class="actions join-room-btn-container">
+          <%= f.submit "Join as writer", :class => "btn btn-success join-room-btn" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
 </div>
 
 
@@ -26,7 +50,7 @@
         <span class="username"><%= "@#{script.user.username} - " %></span>
         <span class="time-stamp"><%= distance_of_time_in_words_to_now(script.created_at) %></span>
         <% if user_signed_in? && current_user.id == script.user_id %>
-          <span class="edit"><%= link_to 'Edit', edit_script_path %></span>
+          <span class="edit"><%= link_to 'Edit', url_for({controller:'scripts', action: 'edit', id:script.id}) %></span>
         <% end %>
         <p class="content"><%= script.content %></p>
       </div>
