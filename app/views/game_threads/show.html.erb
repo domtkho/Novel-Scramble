@@ -7,7 +7,7 @@
 
 <div class="conatainer writer-summary col-sm-3">
   <div class="section-header">
-    <h3 class="section-header">Writers</h3>
+    <h3 class="section-header">Writers<span class="writer-counter">Slots: <%=@game_thread.users.count %>/8</span></h3>
   </div>
 
   <% @game_thread.users.each do |user| %>
@@ -42,9 +42,11 @@
   </div>
   <% @scripts.each do |script| %>
     <div class="row script-container">
+
       <div class="col-sm-1 avatar-container">
         <%= image_tag((script.user.avatar), :class => "avatar-thumbnail") %>
       </div>
+
       <div class="script col-md-10">
         <span class="fullname"><strong><%= link_to "#{script.user.first_name} #{script.user.last_name}", "/users/#{script.user.id}" %></strong></span>
         <span class="username"><%= "@#{script.user.username} - " %></span>
@@ -54,6 +56,7 @@
         <% end %>
         <p class="content"><%= script.content %></p>
       </div>
+
     </div>
   <% end %>
 
@@ -84,6 +87,6 @@
 
 <div class="conatainer writer-summary col-sm-3">
   <div class="section-header">
-    <h3 class="section-header">Current Writers</h3>
+    <h3 class="section-header">Current Scores</h3>
   </div>
 </div>

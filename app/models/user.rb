@@ -13,4 +13,6 @@ class User < ActiveRecord::Base
     :case_sensitive => false
   }
 
+  # acts_as_voter
+
 end

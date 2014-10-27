@@ -27,6 +27,7 @@ gem 'devise'
 
 gem 'carrierwave'
 gem 'faker'
+gem 'acts_as_votable', '~> 0.10.0'
 
 group :development do
   # Spring speeds up development by keeping your application running in the background.

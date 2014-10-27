@@ -12,7 +12,7 @@
         <th>Thread name</th>
         <th>Genre</th>
         <th>Created at</th>
-        <th>No. Scripts</th>
+        <th>Writer Slots</th>
         <th>Join Room</th>
       </tr>
     </thead>
@@ -23,7 +23,7 @@
           <td><%= link_to game_thread.thread_name, game_thread %></td>
           <td><%= game_thread.genre %></td>
           <td><%= game_thread.created_at.strftime "%I:%M%P - %d %b %Y" %></td>
-          <td><%= game_thread.scripts.count %></td>
+          <td><%= game_thread.users.count %>/8</td>
           <td><%= link_to "Join Now", game_thread, {class: 'btn btn-success'} %></td>
         </tr>
       <% end %>

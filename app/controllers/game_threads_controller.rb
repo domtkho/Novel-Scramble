@@ -60,6 +60,7 @@ class GameThreadsController < ApplicationController
   # POST /game_threads.json
   def create
     @game_thread = GameThread.new(game_thread_params)
+    @game_thread.users.push current_user
 
     respond_to do |format|
       if @game_thread.save

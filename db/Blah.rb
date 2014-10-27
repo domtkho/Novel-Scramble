@@ -26,13 +26,8 @@ ActiveRecord::Schema.define(version: 20141027102838) do
     t.integer "game_thread_id", null: false
   end
 
-  create_table "scripts", force: true do |t|
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "game_thread_id"
-    t.integer  "user_id"
-  end
+# Could not dump table "scripts" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -51,7 +46,6 @@ ActiveRecord::Schema.define(version: 20141027102838) do
     t.string   "last_name"
     t.string   "avatar"
     t.string   "username"
-    t.integer  "votes"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
