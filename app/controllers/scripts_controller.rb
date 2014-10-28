@@ -28,9 +28,6 @@ class ScriptsController < ApplicationController
     respond_to do |format|
       if !user_signed_in?
         format.html { redirect_to new_user_session_path }
-      elsif current_user.voted_for? @script
-        format.html { redirect_to :back, notice: 'You cannot vote on the same script for more than once!' }
-        format.json { render :show, status: :created, location: @script }
       else
         @script.liked_by current_user
         @script.save
@@ -39,6 +36,22 @@ class ScriptsController < ApplicationController
       end
     end
   end
+
+  def unvote
+    @script = Script.find(params[:script_id])
+
+    respond_to do |format|
+      if !user_signed_in?
+        format.html { redirect_to new_user_session_path }
+      else
+        @script.unliked_by current_user
+        @script.save
+        format.html { redirect_to :back, notice: 'Successfully unvoted!' }
+        format.json { render :show, status: :created, location: @script }
+      end
+    end
+  end
+
 
   # POST /scripts
   # POST /scripts.json
@@ -88,6 +101,6 @@ class ScriptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def script_params
-      params.require(:script).permit(:content, :game_thread_id, :user_id)
+      params.require(:script).permit(:content, :game_thread_id, :user_id, :round)
     end
 end

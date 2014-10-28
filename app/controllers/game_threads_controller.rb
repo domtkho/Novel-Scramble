@@ -12,6 +12,25 @@ class GameThreadsController < ApplicationController
   def show
     @script = Script.new
     @scripts = Script.where(game_thread_id: @game_thread.id)
+
+    @total_rounds = @game_thread.round
+    @top_voted_scripts = []
+
+    (1..@total_rounds-1).each do |round|
+      @scripts_in_round = @scripts.where(round: round)
+      @most_votes = @scripts_in_round.first
+
+      @scripts_in_round.each do |script|
+        if script.votes_for.size > @most_votes.votes_for.size
+          @most_votes = script
+        end
+      end
+      @top_voted_scripts << @most_votes
+    end
+
+    @write_phase_length = 30000
+    @vote_phase_length = 30000
+
   end
 
   # GET /game_threads/new
@@ -53,6 +72,23 @@ class GameThreadsController < ApplicationController
         format.json { render json: @game_thread.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def move_to_next_round
+    @game_thread = GameThread.find(params[:game_thread_id])
+    @game_thread.round = @game_thread.round + 1
+    @game_thread.save
+
+    respond_to do |format|
+      if @game_thread.save
+        format.html { redirect_to :back, notice: "Commence round #{@game_thread.round}" }
+        format.json { render :show, status: :created, location: @game_thread }
+      else
+        format.html { render :new }
+        format.json { render json: @game_thread.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
 
@@ -108,6 +144,6 @@ class GameThreadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_thread_params
-      params.require(:game_thread).permit(:thread_name, :genre, :user_id)
+      params.require(:game_thread).permit(:thread_name, :genre, :user_id, :round, :phase)
     end
 end

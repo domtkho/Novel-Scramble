@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027102838) do
+ActiveRecord::Schema.define(version: 20141028124323) do
 
   create_table "game_threads", force: true do |t|
     t.string   "thread_name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20141027102838) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "round",       default: 1
+    t.string   "phase"
   end
 
   create_table "game_threads_users", id: false, force: true do |t|
@@ -32,6 +34,7 @@ ActiveRecord::Schema.define(version: 20141027102838) do
     t.datetime "updated_at"
     t.integer  "game_thread_id"
     t.integer  "user_id"
+    t.integer  "round"
   end
 
   create_table "users", force: true do |t|
@@ -51,7 +54,6 @@ ActiveRecord::Schema.define(version: 20141027102838) do
     t.string   "last_name"
     t.string   "avatar"
     t.string   "username"
-    t.integer  "votes"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

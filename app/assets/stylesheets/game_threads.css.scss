@@ -33,6 +33,29 @@ div.section-header {
   }
 }
 
+
+div.round-container {
+  text-align: center;
+}
+
+h2.round-number {
+  font-family: "Julius"
+}
+
+div.timer {
+
+  background-color: #FFFFFF;
+  padding: 10px;
+  border: 1px solid #5d5d5d;
+  border-radius: 5px;
+
+  span {
+    color: #E8470C;
+    font-family: "";
+    font-size: 24px;
+  }
+}
+
 /* Writers Summary
 -------------------------------------------------- */
 

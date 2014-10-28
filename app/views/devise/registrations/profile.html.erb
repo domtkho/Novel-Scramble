@@ -19,8 +19,9 @@
     <tbody>
       <% @user.scripts.reverse.each do |script| %>
         <tr>
-          <td>Posted a script in <%= link_to script.game_thread.thread_name, script.game_thread %></td>
-          <td><%= "#{distance_of_time_in_words_to_now(script.created_at)} ago" %></td>
+          <% next if script.game_thread == nil %>
+            <td>Posted a script in <%= link_to script.game_thread.thread_name, script.game_thread %></td>
+            <td><%= "#{distance_of_time_in_words_to_now(script.created_at)} ago" %></td>
         </tr>
       <% end %>
     </tbody>

@@ -63,8 +63,15 @@ div.script {
 
 }
 
+input.vote-btn {
+  display: none;
+}
+
 div.number-of-votes {
+  color: #E89E25;
+  font-size: 18px;
   margin: 0 auto;
+  padding-top: 5px;
   text-align: center;
 }
 

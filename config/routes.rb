@@ -34,11 +34,13 @@ Rails.application.routes.draw do
   #   end
   resources :scripts do
     patch 'upvote' => 'scripts#upvote'
+    patch 'unvote' => 'scripts#unvote'
   end
 
   resources :game_threads do
     patch 'add_writer' => 'game_threads#add_writer'
     patch 'remove_writer' => 'game_threads#remove_writer'
+    patch 'next_round' => 'game_threads#move_to_next_round'
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
