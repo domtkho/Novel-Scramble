@@ -13,16 +13,28 @@
 
   <div class="field">
     <%= f.label :thread_name %><br>
-    <%= f.text_field :thread_name %>
+    <%= f.text_field :thread_name, {class: 'form-control', placeholder: "Thread name"} %>
   </div>
   <div class="field">
     <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
+    <%= f.text_field :genre, {class: 'form-control', placeholder: "Genre"} %>
+  </div>
+  <div class="field">
+    <%= f.label :intro %><br>
+    <%= f.text_area :intro, {class: 'form-control', rows: '8', placeholder: "Create a brief intro to the story, and watch fellow writers take your story to places you have never imagined before!"} %>
+  </div>
+  <div class="field">
+    <%= f.label :min_writer, "Minimum writers" %><br>
+    <%= f.number_field :min_writer, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :max_writer, "Maximum writers" %><br>
+    <%= f.number_field :max_writer, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.hidden_field :user_id, {:value => current_user.id} %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create now", {class: 'btn btn-success btn-block'} %>
   </div>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029111550) do
+ActiveRecord::Schema.define(version: 20141029171339) do
 
   create_table "game_threads", force: true do |t|
     t.string   "thread_name"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20141029111550) do
     t.integer  "phase_length",   default: 120000
     t.string   "phase",          default: "waiting"
     t.integer  "min_writer",     default: 4
+    t.integer  "max_writer",     default: 8
+    t.text     "intro"
+    t.datetime "start_time"
   end
 
   create_table "game_threads_users", id: false, force: true do |t|

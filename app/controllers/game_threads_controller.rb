@@ -49,7 +49,8 @@ class GameThreadsController < ApplicationController
 
     if @game_thread.users.count >= @game_thread.min_writer
       @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
-      @game_thread.phase = "writing"
+      @game_thread.start_time = Time.now
+      @game_thread.phase = "preparation"
     end
 
     respond_to do |format|
@@ -78,28 +79,16 @@ class GameThreadsController < ApplicationController
     end
   end
 
-  def start_game
-    @game_thread = GameThread.find(params[:game_thread_id])
-
-    @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
-    @game_thread.phase = "writing"
-
-    respond_to do |format|
-      if @game_thread.save
-        format.html { redirect_to :back }
-        format.json { render :show, status: :created, location: @game_thread }
-      else
-        format.html { render :new }
-        format.json { render json: @game_thread.errors, status: :unprocessable_entity }
-      end
-    end
-
-  end
 
   def switch_phase
     @game_thread = GameThread.find(params[:game_thread_id])
     @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
-    @game_thread.phase = "voting"
+    # @game_thread.phase = "voting"
+    if @game_thread.phase == "preparation"
+      @game_thread.phase = "writing"
+    elsif @game_thread.phase == "writing"
+      @game_thread.phase = "voting"
+    end
 
     respond_to do |format|
       if @game_thread.save
@@ -116,7 +105,7 @@ class GameThreadsController < ApplicationController
 
   def move_to_next_round
     @game_thread = GameThread.find(params[:game_thread_id])
-    @game_thread.phase = "writing"
+    @game_thread.phase = "preparation"
 
     @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
     @game_thread.round = @game_thread.round + 1
@@ -187,6 +176,6 @@ class GameThreadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_thread_params
-      params.require(:game_thread).permit(:thread_name, :genre, :user_id, :round, :phase)
+      params.require(:game_thread).permit(:thread_name, :genre, :intro, :user_id, :round, :phase, :max_writer, :min_writer)
     end
 end

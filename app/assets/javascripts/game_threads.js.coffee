@@ -12,7 +12,10 @@ $ ->
       time_left = endTime - new Date
 
       if time_left <= 0
-        if $('div.timer').data("phase") == "writing"
+
+        # if ["preparation", "writing", "reading"].include?($('div.timer').data("phase"))
+
+        if ($('div.timer').data("phase") == "preparation") || ($('div.timer').data("phase") == "writing")
           $('input.switch-phase-btn').click()
         else
           $('input.next-round-btn').click()

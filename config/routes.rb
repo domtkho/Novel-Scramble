@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   resources :game_threads do
     patch 'add_writer' => 'game_threads#add_writer'
     patch 'remove_writer' => 'game_threads#remove_writer'
-    patch 'start_game' => 'game_threads#start_game'
     patch 'switch_phase' => 'game_threads#switch_phase'
     patch 'next_round' => 'game_threads#move_to_next_round'
   end
