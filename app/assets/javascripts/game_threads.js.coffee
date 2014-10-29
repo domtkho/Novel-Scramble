@@ -7,14 +7,13 @@ $ ->
 
   countDown = ->
 
-    if endTime isnt null
+    if $('div.timer').data("end-time") isnt "waiting"
+    # if endTime isnt null
       time_left = endTime - new Date
+
       if time_left <= 0
         if $('div.timer').data("phase") == "writing"
-          $('.add-script').fadeOut('slow')
-          $('input.vote-btn').fadeIn('slow')
-          # $('input.switch-phase-btn').click()
-          # countDown()
+          $('input.switch-phase-btn').click()
         else
           $('input.next-round-btn').click()
 

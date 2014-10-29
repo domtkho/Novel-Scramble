@@ -94,11 +94,7 @@ class GameThreadsController < ApplicationController
   def switch_phase
     @game_thread = GameThread.find(params[:game_thread_id])
     @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
-    if @game_thread.phase == "writing"
-      @game_thread.phase = "voting"
-    else
-      @game_thread.phase = "writing"
-    end
+    @game_thread.phase = "voting"
 
     respond_to do |format|
       if @game_thread.save
@@ -115,7 +111,7 @@ class GameThreadsController < ApplicationController
 
   def move_to_next_round
     @game_thread = GameThread.find(params[:game_thread_id])
-
+    @game_thread.phase = "writing"
 
     @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
     @game_thread.round = @game_thread.round + 1

@@ -92,17 +92,19 @@
       </div>
 
       <div class="col-xs-1">
-        <% if current_user.voted_for? script %>
-          <%= form_for script, url: {controller: 'scripts', action: 'unvote', script_id: script.id} do |f| %>
-            <div class="actions">
-              <%= f.submit "Voted", :class => "btn btn-success vote-btn" %>
-            </div>
-          <% end %>
-        <% else %>
-          <%= form_for script, url: {controller: 'scripts', action: 'upvote', script_id: script.id} do |f| %>
-            <div class="actions">
-              <%= f.submit "Vote", :class => "btn btn-primary vote-btn" %>
-            </div>
+        <% if @game_thread.phase == "voting" %>
+          <% if current_user.voted_for? script %>
+            <%= form_for script, url: {controller: 'scripts', action: 'unvote', script_id: script.id} do |f| %>
+              <div class="actions">
+                <%= f.submit "Voted", :class => "btn btn-success vote-btn" %>
+              </div>
+            <% end %>
+          <% else %>
+            <%= form_for script, url: {controller: 'scripts', action: 'upvote', script_id: script.id} do |f| %>
+              <div class="actions">
+                <%= f.submit "Vote", :class => "btn btn-primary vote-btn" %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       </div>
@@ -111,26 +113,28 @@
   <% end %>
 
   <% if user_signed_in? && @game_thread.users.include?(current_user) %>
-    <div class="add-script">
-      <%= form_for(@script) do |f| %>
-        <div class="field">
-          <%= f.label :content, "Add New Script:" %><br>
-          <%= f.text_area :content, {:class => "form-control", :rows => "8"} %>
-        </div>
-        <div class="field">
-          <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
-        </div>
-        <div class="field">
-          <%= f.hidden_field :user_id, {:value => current_user.id} %>
-        </div>
-        <div class="field">
-          <%= f.hidden_field :round, {:value => @game_thread.round} %>
-        </div>
-        <div class="actions">
-          <%= f.submit "Submit", :class => "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
+    <% if @game_thread.phase == "writing" %>
+      <div class="add-script">
+        <%= form_for(@script) do |f| %>
+          <div class="field">
+            <%= f.label :content, "Add New Script:" %><br>
+            <%= f.text_area :content, {:class => "form-control", :rows => "8"} %>
+          </div>
+          <div class="field">
+            <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+          </div>
+          <div class="field">
+            <%= f.hidden_field :user_id, {:value => current_user.id} %>
+          </div>
+          <div class="field">
+            <%= f.hidden_field :round, {:value => @game_thread.round} %>
+          </div>
+          <div class="actions">
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary"} %>
