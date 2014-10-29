@@ -8,11 +8,13 @@
 
 <div class="container round-container">
 
+  <!--
   <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'start_game', game_thread_id: @game_thread.id}) do |f| %>
     <div class="actions">
       <%= f.submit "Start Game", :class => "btn btn-default start-game-btn" %>
     </div>
   <% end %>
+  -->
 
   <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'switch_phase', game_thread_id: @game_thread.id}) do |f| %>
     <div class="actions">
@@ -23,7 +25,7 @@
   <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'move_to_next_round', game_thread_id: @game_thread.id}) do |f| %>
     <div class="actions">
       <%= f.submit "Next Round", :class => "btn btn-default next-round-btn" %>
-      <h2 class="round-number">Round <%= @game_thread.round %></h2>
+      <h2 class="round-number">Round <%= @game_thread.round %>: <%= @game_thread.phase %> phase</h2>
     </div>
     <div class="row">
       <div class="col-md-4 col-md-offset-4 timer" data-end-time="<%= @round_end_time %>" data-phase="<%= @game_thread.phase %>">

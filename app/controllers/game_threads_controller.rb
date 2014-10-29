@@ -47,6 +47,11 @@ class GameThreadsController < ApplicationController
       @game_thread.users.push current_user
     end
 
+    if @game_thread.users.count >= @game_thread.min_writer
+      @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
+      @game_thread.phase = "writing"
+    end
+
     respond_to do |format|
       if @game_thread.save
         format.html { redirect_to :back, notice: 'You have joined as a writer!' }
