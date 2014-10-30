@@ -1,0 +1,26 @@
+<% @game_thread.users.each do |user| %>
+  <div class="writer-container">
+    <%= image_tag((user.avatar), :class => "avatar-thumbnail") %>
+    <span class="fullname"><strong><%= link_to "#{user.first_name} #{user.last_name}", "/users/#{user.id}" %></strong></span>
+    <% if user_signed_in? && current_user.id == user.id %>
+      <%= form_for(@game_thread, remote: true, :url => {controller: 'game_threads', action: 'remove_writer', game_thread_id: @game_thread.id}, :html => {:class => "leave-room-btn"}) do |f| %>
+        <div class="actions">
+          <%= f.submit "Leave", :class => "btn btn-warning" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<% (@game_thread.max_writer - @game_thread.users.count).times do %>
+  <div class="writer-container">
+    <%= form_for(@game_thread, remote: true, :url => {controller: 'game_threads', action: 'add_writer', game_thread_id: @game_thread.id}) do |f| %>
+      <div class="actions join-room-btn-container">
+        <% if user_signed_in? %>
+          <%= f.submit "Join as writer", :class => "btn btn-success join-room-btn" %>
+        <% else %>
+          <%= link_to "Join as writer", new_user_session_path, {class: "btn btn-success join-room-btn"} %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

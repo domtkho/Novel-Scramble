@@ -130,6 +130,12 @@ class GameThreadsController < ApplicationController
     render '_script_pane', layout: false
   end
 
+  def writer_pane
+    @game_thread = GameThread.find(params[:game_thread_id])
+    @users = @game_thread.users
+    render '_writer_pane', layout: false
+  end
+
 
   # POST /game_threads
   # POST /game_threads.json

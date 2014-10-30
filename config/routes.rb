@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     patch 'switch_phase' => 'game_threads#switch_phase'
     patch 'next_round' => 'game_threads#move_to_next_round'
     get 'script_pane' => 'game_threads#script_pane'
+    get 'writer_pane' => 'game_threads#writer_pane'
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }

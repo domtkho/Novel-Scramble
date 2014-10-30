@@ -20,13 +20,13 @@
     <div class="col-xs-1">
       <% if @game_thread.phase == "voting" %>
         <% if current_user.voted_for? script %>
-          <%= form_for script, url: {controller: 'scripts', action: 'unvote', script_id: script.id} do |f| %>
+          <%= form_for script, remote: true, url: {controller: 'scripts', action: 'unvote', script_id: script.id} do |f| %>
             <div class="actions">
               <%= f.submit "Voted", :class => "btn btn-success vote-btn" %>
             </div>
           <% end %>
         <% else %>
-          <%= form_for script, url: {controller: 'scripts', action: 'upvote', script_id: script.id} do |f| %>
+          <%= form_for script, remote: true, url: {controller: 'scripts', action: 'upvote', script_id: script.id} do |f| %>
             <div class="actions">
               <%= f.submit "Vote", :class => "btn btn-primary vote-btn" %>
             </div>

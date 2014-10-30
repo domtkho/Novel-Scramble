@@ -6,10 +6,22 @@ $ ->
   endTime = new Date($('div.timer').data("end-time"))
   thread_id = $('div.script-pane').data("game-thread-id")
 
-  pullData = ->
+  pollScriptPane = ->
     $.get("/game_threads/#{thread_id}/script_pane").done (data) ->
       $('div.script-pane').html(data)
-      setTimeout(pullData, 500)
+      setTimeout(pollScriptPane, 500)
+
+  pollWriterPane = ->
+    $.get("/game_threads/#{thread_id}/writer_pane").done (data) ->
+      $('div.writer-pane').html(data)
+      setTimeout(pollWriterPane, 500)
+
+  $.post("/game_threads/#{thread_id}/add_writer.json").done (data) ->
+    $('div.writer-pane').html(data)
+
+  $.post("/game_threads/#{thread_id}/remove_writer.json").done (data) ->
+    $('div.writer-pane').html(data)
+
 
   countDown = ->
 
@@ -37,8 +49,9 @@ $ ->
         $('#countdown-time-milli').text("#{milliseconds}")
         setTimeout(countDown, 10)
 
+  pollWriterPane()
+  pollScriptPane()
   countDown()
-  pullData()
 
 
 
