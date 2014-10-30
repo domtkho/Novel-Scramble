@@ -1,0 +1,39 @@
+<% @scripts.each do |script| %>
+  <% next if script.round != @game_thread.round %>
+  <div class="row script-container">
+
+    <div class="col-xs-1 avatar-container">
+      <%= image_tag((script.user.avatar), :class => "avatar-thumbnail") %>
+      <div class="number-of-votes"><%= script.votes_for.size%></div>
+    </div>
+
+    <div class="script col-xs-9">
+      <span class="fullname"><strong><%= link_to "#{script.user.first_name} #{script.user.last_name}", "/users/#{script.user.id}" %></strong></span>
+      <span class="username"><%= "@#{script.user.username} - " %></span>
+      <span class="time-stamp"><%= distance_of_time_in_words_to_now(script.created_at) %></span>
+      <% if user_signed_in? && current_user.id == script.user_id %>
+        <span class="edit"><%= link_to 'Edit', url_for({controller:'scripts', action: 'edit', id:script.id}) %></span>
+      <% end %>
+      <p class="content"><%= script.content %></p>
+    </div>
+
+    <div class="col-xs-1">
+      <% if @game_thread.phase == "voting" %>
+        <% if current_user.voted_for? script %>
+          <%= form_for script, url: {controller: 'scripts', action: 'unvote', script_id: script.id} do |f| %>
+            <div class="actions">
+              <%= f.submit "Voted", :class => "btn btn-success vote-btn" %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= form_for script, url: {controller: 'scripts', action: 'upvote', script_id: script.id} do |f| %>
+            <div class="actions">
+              <%= f.submit "Vote", :class => "btn btn-primary vote-btn" %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

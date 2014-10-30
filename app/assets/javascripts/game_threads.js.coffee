@@ -4,6 +4,12 @@
 $ ->
 
   endTime = new Date($('div.timer').data("end-time"))
+  thread_id = $('div.script-pane').data("game-thread-id")
+
+  pullData = ->
+    $.get("/game_threads/#{thread_id}/script_pane").done (data) ->
+      $('div.script-pane').html(data)
+      setTimeout(pullData, 500)
 
   countDown = ->
 
@@ -32,6 +38,7 @@ $ ->
         setTimeout(countDown, 10)
 
   countDown()
+  pullData()
 
 
 
