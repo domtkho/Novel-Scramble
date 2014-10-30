@@ -31,6 +31,7 @@
       <% end %>
     </div>
   <% end %>
+
 </div>
 
 <div class="conatainer writer-summary col-sm-3">
@@ -68,7 +69,6 @@
   <div class="section-header">
     <h3>Scripts</h3>
   </div>
-
 
   <% @scripts.each do |script| %>
     <% next if script.round != @game_thread.round %>
@@ -144,10 +144,14 @@
   </div>
 
   <% @top_voted_scripts.each do |script| %>
-    <div class="script-container">
-      <strong><p>Round <%= script.round %>:</p></strong>
-      <p><%= script.content %></p>
-    </div>
+    <% if script == nil %>
+      <% next %>
+    <% else %>
+      <div class="script-container">
+        <strong><p>Round <%= script.round %>:</p></strong>
+        <p><%= script.content %></p>
+      </div>
+    <% end %>
   <% end %>
 
 

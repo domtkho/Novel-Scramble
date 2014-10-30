@@ -31,7 +31,9 @@ $ ->
         $('#countdown-time-milli').text("#{milliseconds}")
         setTimeout(countDown, 10)
 
+
   countDown()
+
 
 
 
