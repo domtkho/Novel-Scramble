@@ -4,8 +4,6 @@
   <h2><%= @game_thread.genre %></h2>
 </header>
 
-
-
 <div class="round-container">
 
   <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'switch_phase', game_thread_id: @game_thread.id}) do |f| %>
