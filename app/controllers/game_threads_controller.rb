@@ -7,6 +7,7 @@ class GameThreadsController < ApplicationController
     @game_threads = GameThread.all
   end
 
+
   # GET /game_threads/1
   # GET /game_threads/1.json
   def show
@@ -136,6 +137,10 @@ class GameThreadsController < ApplicationController
     render '_writer_pane', layout: false
   end
 
+  def room_table_pane
+    @game_threads = GameThread.all
+    render '_room_table_pane', layout: false
+  end
 
   # POST /game_threads
   # POST /game_threads.json

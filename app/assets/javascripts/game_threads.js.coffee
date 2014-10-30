@@ -6,6 +6,11 @@ $ ->
   endTime = new Date($('div.timer').data("end-time"))
   thread_id = $('div.script-pane').data("game-thread-id")
 
+  pollGameRoomTable = ->
+    $.get("/room_table_pane").done (data) ->
+      $('div.room-table-pane').html(data)
+      setTimeout(pollGameRoomTable, 500)
+
   pollScriptPane = ->
     $.get("/game_threads/#{thread_id}/script_pane").done (data) ->
       $('div.script-pane').html(data)
@@ -30,9 +35,6 @@ $ ->
       time_left = new Date(endTime - new Date).getTime()
 
       if time_left <= 0
-
-        # if ["preparation", "writing", "reading"].include?($('div.timer').data("phase"))
-
         if ($('div.timer').data("phase") == "preparation") || ($('div.timer').data("phase") == "writing")
           $('input.switch-phase-btn').click()
         else
@@ -49,6 +51,7 @@ $ ->
         $('#countdown-time-milli').text("#{milliseconds}")
         setTimeout(countDown, 10)
 
+  pollGameRoomTable()
   pollWriterPane()
   pollScriptPane()
   countDown()

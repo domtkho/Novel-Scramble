@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Thread Name</th>
+      <th>Genre</th>
+      <th>Game Lapse Time</th>
+      <th>Current Round</th>
+      <th>Writer Slots</th>
+      <th>Join Room</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @game_threads.each do |game_thread| %>
+      <tr>
+        <td><%= link_to game_thread.thread_name, game_thread %></td>
+        <td><%= game_thread.genre %></td>
+        <% if game_thread.start_time == nil %>
+          <td>Not yet started</td>
+        <% else %>
+          <td><%= distance_of_time_in_words_to_now(game_thread.start_time) %></td>
+        <% end %>
+        <td><%= game_thread.round %></td>
+        <td><%= game_thread.max_writer - game_thread.users.count %>/<%= game_thread.max_writer %></td>
+        <td><%= link_to "Join Now", game_thread, {class: 'btn btn-success'} %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>

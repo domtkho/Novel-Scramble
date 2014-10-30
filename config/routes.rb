@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     patch 'unvote' => 'scripts#unvote'
   end
 
+  get 'room_table_pane' => 'game_threads#room_table_pane'
   resources :game_threads do
     patch 'add_writer' => 'game_threads#add_writer'
     patch 'remove_writer' => 'game_threads#remove_writer'

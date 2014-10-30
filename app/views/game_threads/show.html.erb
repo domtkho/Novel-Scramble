@@ -40,8 +40,10 @@
     <h3 class="section-header">Writers<span class="writer-counter">Slots: <%=@game_thread.max_writer - @game_thread.users.count %>/<%= @game_thread.max_writer %></span></h3>
   </div>
 
-  <div class="writer-pane" data="<%= @game_thread.id %>"></div>
+  <div class="writer-pane" data="<%= @game_thread.id %>">
   </div>
+
+</div>
 
 
 <div class="container scripts-container col-sm-6">
