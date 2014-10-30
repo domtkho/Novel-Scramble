@@ -47,8 +47,8 @@ class GameThreadsController < ApplicationController
       @game_thread.users.push current_user
     end
 
-    if @game_thread.users.count >= @game_thread.min_writer
-      @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
+    if (@game_thread.users.count >= @game_thread.min_writer) && (@game_thread.start_time == nil)
+      @game_thread.round_end_time = Time.now + (@game_thread.preparation_phase_length / 1000)
       @game_thread.start_time = Time.now
       @game_thread.phase = "preparation"
     end
@@ -82,11 +82,12 @@ class GameThreadsController < ApplicationController
 
   def switch_phase
     @game_thread = GameThread.find(params[:game_thread_id])
-    @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
     # @game_thread.phase = "voting"
     if @game_thread.phase == "preparation"
+      @game_thread.round_end_time = Time.now + (@game_thread.writing_phase_length / 1000)
       @game_thread.phase = "writing"
     elsif @game_thread.phase == "writing"
+      @game_thread.round_end_time = Time.now + (@game_thread.voting_phase_length / 1000)
       @game_thread.phase = "voting"
     end
 
@@ -107,7 +108,7 @@ class GameThreadsController < ApplicationController
     @game_thread = GameThread.find(params[:game_thread_id])
     @game_thread.phase = "preparation"
 
-    @game_thread.round_end_time = Time.now + (@game_thread.phase_length / 1000)
+    @game_thread.round_end_time = Time.now + (@game_thread.preparation_phase_length / 1000)
     @game_thread.round = @game_thread.round + 1
     @game_thread.save
 

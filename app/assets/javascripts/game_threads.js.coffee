@@ -9,7 +9,7 @@ $ ->
 
     if $('div.timer').data("end-time") isnt "waiting"
     # if endTime isnt null
-      time_left = endTime - new Date
+      time_left = new Date(endTime - new Date).getTime()
 
       if time_left <= 0
 

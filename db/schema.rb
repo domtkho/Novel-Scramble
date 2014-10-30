@@ -19,14 +19,16 @@ ActiveRecord::Schema.define(version: 20141029171339) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "round",          default: 1
+    t.integer  "round",                    default: 1
     t.datetime "round_end_time"
-    t.integer  "phase_length",   default: 120000
-    t.string   "phase",          default: "waiting"
-    t.integer  "min_writer",     default: 4
-    t.integer  "max_writer",     default: 8
+    t.integer  "min_writer",               default: 4
+    t.integer  "max_writer",               default: 8
     t.text     "intro"
     t.datetime "start_time"
+    t.string   "phase",                    default: "waiting"
+    t.integer  "preparation_phase_length", default: 60000
+    t.integer  "writing_phase_length",     default: 120000
+    t.integer  "voting_phase_length",      default: 120000
   end
 
   create_table "game_threads_users", id: false, force: true do |t|
