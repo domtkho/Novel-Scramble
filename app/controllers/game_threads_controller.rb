@@ -142,6 +142,12 @@ class GameThreadsController < ApplicationController
     render '_room_table_pane', layout: false
   end
 
+  # def timer_pane
+  #   @game_thread = GameThread.find(params[:game_thread_id])
+  #   @game_threads = GameThread.all
+  #   render '_timer_pane', layout: false
+  # end
+
   # POST /game_threads
   # POST /game_threads.json
   def create

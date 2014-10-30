@@ -1,3 +1,7 @@
+<div class="section-header">
+  <h3 class="section-header">Writers<span class="writer-counter">Slots: <%=@game_thread.max_writer - @game_thread.users.count %>/<%= @game_thread.max_writer %></span></h3>
+</div>
+
 <% @game_thread.users.each do |user| %>
   <div class="writer-container">
     <%= image_tag((user.avatar), :class => "avatar-thumbnail") %>

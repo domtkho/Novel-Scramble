@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     patch 'next_round' => 'game_threads#move_to_next_round'
     get 'script_pane' => 'game_threads#script_pane'
     get 'writer_pane' => 'game_threads#writer_pane'
+    # get 'timer_pane' => 'game_threads#timer_pane'
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }

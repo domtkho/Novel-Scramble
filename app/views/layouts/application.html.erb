@@ -3,7 +3,7 @@
 <head>
   <title>NovelScramble</title>
   <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
 
   <%= csrf_meta_tags %>
 </head>
@@ -52,7 +52,8 @@
 
   <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' %>
   <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
+  <script>window['<%= params[:controller] + '_' + params[:action] %>_js'] && <%= params[:controller] + '_' + params[:action] %>_js();</script>
 
 </body>
 </html>
