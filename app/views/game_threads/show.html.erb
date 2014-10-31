@@ -4,32 +4,22 @@
   <h2><%= @game_thread.genre %></h2>
 </header>
 
-<div class="round-container">
-  <%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'switch_phase', game_thread_id: @game_thread.id}) do |f| %>
-    <div class="actions">
-      <%= f.submit "Switch Phase", :class => "btn btn-default switch-phase-btn" %>
-    </div>
-  <% end %>
+<div class="actions">
+  <h2 class="round-number" ><span class="current_round"></span>: <span class="current_phase"></span></h2>
 </div>
 
-<%= form_for(@game_thread, :url => {controller: 'game_threads', action: 'move_to_next_round', game_thread_id: @game_thread.id}) do |f| %>
-  <div class="actions">
-    <%= f.submit "Next Round", :class => "btn btn-default next-round-btn" %>
-    <h2 class="round-number">Round <%= @game_thread.round %>: <%= @game_thread.phase %> phase</h2>
+<div class="row">
+  <div class="waiting-message-container col-md-4 col-md-offset-4">
+    <h3>Waiting for <%= @game_thread.min_writer - @game_thread.users.count %> more writers</h3>
   </div>
 
-  <div class="row">
-    <div class="waiting-message-container col-md-4 col-md-offset-4">
-      <h3>Waiting for <%= @game_thread.min_writer - @game_thread.users.count %> more writers</h3>
-    </div>
-
-    <div class="col-md-4 col-md-offset-4 timer" data-end-time="<%= @round_end_time %>" data-phase="<%= @game_thread.phase %>">
-      <span class="col-md-4" id="countdown-time-min"></span>
-      <span class="col-md-4" id="countdown-time-sec"></span>
-      <span class="col-md-4" id="countdown-time-milli"></span>
-    </div>
+  <div class="col-md-4 col-md-offset-4 timer" data-end-time="<%= @round_end_time %>" data-phase="<%= @game_thread.phase %>">
+    <span class="col-md-4" id="countdown-time-min"></span>
+    <span class="col-md-4" id="countdown-time-sec"></span>
+    <span class="col-md-4" id="countdown-time-milli"></span>
   </div>
-<% end %>
+</div>
+
 
 <div class="conatainer writer-summary col-sm-3">
   <div class="writer-pane" data="<%= @game_thread.id %>">
@@ -46,28 +36,26 @@
   </div>
 
   <% if user_signed_in? && @game_thread.users.include?(current_user) %>
-    <% if @game_thread.phase == "writing" %>
-      <div class="add-script">
-        <%= form_for(@script, remote: true) do |f| %>
-          <div class="field">
-            <%= f.label :content, "Add New Script:" %><br>
-            <%= f.text_area :content, {:class => "form-control", :rows => "8"} %>
-          </div>
-          <div class="field">
-            <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
-          </div>
-          <div class="field">
-            <%= f.hidden_field :user_id, {:value => current_user.id} %>
-          </div>
-          <div class="field">
-            <%= f.hidden_field :round, {:value => @game_thread.round} %>
-          </div>
-          <div class="actions">
-            <%= f.submit "Submit", :class => "btn btn-success btn-block" %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="add-script">
+      <%= form_for(@script) do |f| %>
+        <div class="field">
+          <%= f.label :content, "Add New Script:" %><br>
+          <%= f.text_area :content, {:class => "form-control", :rows => "8"} %>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :game_thread_id, {:value => @game_thread.id} %>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :user_id, {:value => current_user.id} %>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :round, {:value => @game_thread.round} %>
+        </div>
+        <div class="actions">
+          <%= f.submit "Submit", :class => "btn btn-success btn-block" %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 
 <%= link_to 'Back to lobby', game_threads_path, {"class" => "btn btn-primary btn-block bottom-btn"} %>
@@ -78,13 +66,6 @@
     <h3 class="section-header">Story Line</h3>
   </div>
 
-  <% @top_voted_scripts.each do |script| %>
-    <% next if script == nil %>
-    <div class="script-container">
-      <strong><p>Round <%= script.round %>:</p></strong>
-      <p><%= script.content %></p>
-    </div>
-  <% end %>
-
+  <div class="top-voted-scripts-pane"></div>
 
 </div>

@@ -1,0 +1,7 @@
+<% @top_voted_scripts.each do |script| %>
+  <% next if script == nil %>
+  <div class="script-container">
+    <strong><p>Round <%= script.round %>:</p></strong>
+    <p><%= script.content %></p>
+  </div>
+<% end %>

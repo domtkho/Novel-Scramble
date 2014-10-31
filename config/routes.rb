@@ -41,10 +41,11 @@ Rails.application.routes.draw do
   resources :game_threads do
     patch 'add_writer' => 'game_threads#add_writer'
     patch 'remove_writer' => 'game_threads#remove_writer'
-    patch 'switch_phase' => 'game_threads#switch_phase'
-    patch 'next_round' => 'game_threads#move_to_next_round'
+    post 'switch_phase/:user_phase' => 'game_threads#switch_phase'
     get 'script_pane' => 'game_threads#script_pane'
     get 'writer_pane' => 'game_threads#writer_pane'
+    get 'top_voted_scripts_pane' => 'game_threads#top_voted_scripts_pane'
+    post 'next_round' => 'game_threads#move_to_next_round'
     # get 'timer_pane' => 'game_threads#timer_pane'
   end
 

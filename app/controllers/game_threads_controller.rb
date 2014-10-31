@@ -13,24 +13,6 @@ class GameThreadsController < ApplicationController
   def show
     @script = Script.new
     @scripts = Script.where(game_thread_id: @game_thread.id)
-
-    @total_rounds = @game_thread.round
-    @top_voted_scripts = []
-
-    (1..@total_rounds-1).each do |round|
-      @scripts_in_round = @scripts.where(round: round)
-      @most_votes = @scripts_in_round.first
-
-      @scripts_in_round.each do |script|
-        if script.votes_for.size > @most_votes.votes_for.size
-          @most_votes = script
-        end
-      end
-      @top_voted_scripts << @most_votes
-    end
-
-    @round_end_time = @game_thread.round_end_time
-
   end
 
   # GET /game_threads/new
@@ -83,46 +65,35 @@ class GameThreadsController < ApplicationController
 
   def switch_phase
     @game_thread = GameThread.find(params[:game_thread_id])
-    # @game_thread.phase = "voting"
-    if @game_thread.phase == "preparation"
-      @game_thread.round_end_time = Time.now + (@game_thread.writing_phase_length / 1000)
-      @game_thread.phase = "writing"
-    elsif @game_thread.phase == "writing"
-      @game_thread.round_end_time = Time.now + (@game_thread.voting_phase_length / 1000)
-      @game_thread.phase = "voting"
-    end
+    user_phase = params[:user_phase]
 
-    respond_to do |format|
-      if @game_thread.save
-        format.html { redirect_to :back }
-        format.json { render :show, status: :created, location: @game_thread }
-      else
-        format.html { render :new }
-        format.json { render json: @game_thread.errors, status: :unprocessable_entity }
+    current_phase_to_next_phase = {
+      "waiting" => "preparation",
+      "preparation" => "writing",
+      "writing" => "voting",
+      "voting" => "preparation",
+    }
+
+    phase_name_to_phase_length = {
+      "preparation" => @game_thread.preparation_phase_length / 1000,
+      "writing" => @game_thread.writing_phase_length / 1000,
+      "voting" => @game_thread.voting_phase_length / 1000,
+    }
+
+    # If we are already on the phase the user thinks we need to move to,
+    # don't need to do anything
+    next_phase_according_to_user = current_phase_to_next_phase[user_phase]
+    if @game_thread.phase != next_phase_according_to_user
+
+      if @game_thread.phase == "voting"
+        @game_thread.round += 1
       end
+      @game_thread.phase = current_phase_to_next_phase[@game_thread.phase]
+      @game_thread.round_end_time = Time.now + phase_name_to_phase_length[@game_thread.phase]
+      @game_thread.save
     end
 
-  end
-
-
-  def move_to_next_round
-    @game_thread = GameThread.find(params[:game_thread_id])
-    @game_thread.phase = "preparation"
-
-    @game_thread.round_end_time = Time.now + (@game_thread.preparation_phase_length / 1000)
-    @game_thread.round = @game_thread.round + 1
-    @game_thread.save
-
-    respond_to do |format|
-      if @game_thread.save
-        format.html { redirect_to :back, notice: "Commence round #{@game_thread.round}" }
-        format.json { render :show, status: :created, location: @game_thread }
-      else
-        format.html { render :new }
-        format.json { render json: @game_thread.errors, status: :unprocessable_entity }
-      end
-    end
-
+    render :nothing => true
   end
 
   def script_pane
@@ -142,14 +113,29 @@ class GameThreadsController < ApplicationController
     render '_room_table_pane', layout: false
   end
 
-  # def timer_pane
-  #   @game_thread = GameThread.find(params[:game_thread_id])
-  #   @game_threads = GameThread.all
-  #   render '_timer_pane', layout: false
-  # end
+  def top_voted_scripts_pane
+    @game_thread = GameThread.find(params[:game_thread_id])
+    @game_threads = GameThread.all
 
-  # POST /game_threads
-  # POST /game_threads.json
+    @scripts = Script.where(game_thread_id: @game_thread.id)
+    total_rounds = @game_thread.round
+
+    @top_voted_scripts = []
+
+    (1...total_rounds).each do |round|
+      @scripts_in_round = @scripts.where(round: round)
+      @most_votes = @scripts_in_round.first
+      @scripts_in_round.each do |script|
+        if script.votes_for.size > @most_votes.votes_for.size
+          @most_votes = script
+        end
+      end
+      @top_voted_scripts << @most_votes
+    end
+    render '_top_voted_scripts_pane', layout: false
+  end
+
+
   def create
     @game_thread = GameThread.new(game_thread_params)
     @game_thread.users.push current_user
